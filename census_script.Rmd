@@ -104,10 +104,20 @@ x <- x %>%
   mutate(season_cold = map_lgl(death_date, ~ month(ymd(.)) %in% c(10:12, 1:3)))
 
 
-x %>%
+anim_death <- x %>%
   ggplot(aes(x = death_date, y = n, color = season_cold)) + 
   geom_point() + 
-  geom_line()
+  geom_line() + 
+  transition_reveal(death_date) +
+  labs(title = "Total Deaths over Time",
+       subtitle = "More deaths duing cold weather",
+       x = "Year of Death",
+       y = "Total Number") + 
+  theme_classic()
+
+anim_death
+
+anim_save("death_by_season.gif", anim_death)
 
 ```
 
