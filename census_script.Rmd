@@ -98,13 +98,13 @@ Make a [cool animation](https://davidkane9.github.io/PPBDS/C-animation.html) wit
 
 ```{r s3, echo=FALSE}
 
-small_x <- small_x %>%
+x <- x %>%
   group_by(death_date) %>% 
   summarise(n = n()) %>%
   mutate(season_cold = map_lgl(death_date, ~ month(ymd(.)) %in% c(10:12, 1:3)))
 
 
-small_x %>%
+x %>%
   ggplot(aes(x = death_date, y = n, color = season_cold)) + 
   geom_point() + 
   geom_line()
